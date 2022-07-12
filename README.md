@@ -1,4 +1,4 @@
-# Team Days Cypress
+# Cypress Confidence Test
 
 In our session we are going to work on developing a set of confidence tests 
 
@@ -27,12 +27,12 @@ We will create a set of tests for the search features in [ICPSR](https://www.icp
 
 Create and new directory for out project
 ```
-mkdir cypress-tests
+mkdir confidence
 ```
 
 Now Initialize our node project.  You can take all of the defaults.
 ```
-cd cypress-tests
+cd confidence
 npm init -y
 ```
 
@@ -57,9 +57,54 @@ Find the _Head Start ICPSR 4134_ and view the study page.
 - verify tabs
 
 
+Find the Head Start ICPSR 4134 and view the study page.
+
+- visit site (https://www.icpsr.umich.edu/)
+```
+describe('Find Head Start', () => {
+    it('Visit', () => {
+        cy.visit("https://www.icpsr.umich.edu");
+    });
+});
+```
+
+- Find Head start
+```
+  it('find head start ', function () {
+    cy.visit("https://www.icpsr.umich.edu");
+    cy.get('#test-search-box').type("head start 4134");
+    cy.get("form").submit();
+    cy.get("h1").contains("Search Results").should("exist");
+  });
+```
+Open Study
+```
+  it('open study ', function () {
+    cy.get('a[href$="studies/4134"]').click();
+    cy.get("h1").contains("ICPSR 4134").should("exist");
+  });
+```
+
+Verify Tabs
+```
+    it('verify summary tab', function () {
+        cy.get('#summaryLink').click();
+        cy.location('pathname').should('contain', '/summary');
+      });
+      it('data documentation tab ', function () {
+        cy.get('#datadocumentationLink').click();
+        cy.location('pathname').should('contain', '/datadocumentation');
+      });
+    
+      it('variables tab ', function () {
+        cy.get('#variablesLink').click();
+        cy.location('pathname').should('contain', '/variables');
+      });
+```
+
 **Notes**
-- [Select Elements Best Practices](https://docs.cypress.io/guides/references/best-practices#Selecting-Elements)
-- [Selecting Elements](https://filiphric.com/cypress-basics-selecting-elements)
+- [Testing Format in Cypress](https://docs.cypress.io/guides/references/bundled-tools#Mocha)
+- [Cypress Commands](https://docs.cypress.io/api/table-of-contents)
 - [Chrome Security](https://docs.cypress.io/guides/guides/web-security#Disabling-Web-Security)
 - [Selector Playground](https://docs.cypress.io/guides/core-concepts/test-runner#Selector-Playground)
 - [Select Elements Best Practices](https://docs.cypress.io/guides/references/best-practices#Selecting-Elements)
