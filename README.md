@@ -2,9 +2,6 @@
 
 In our session we are going to work on developing a set of confidence tests 
 
-**Table of Contents**
-
-[[_TOC_]]
 
 ## Prerequisites
 
